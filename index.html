@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viñatera Montpellier - Vinos Premium de Chile</title>
+    <meta name="description" content="Descubre los mejores vinos premium de Viñatera Montpellier. Tradición, calidad y pasión en cada botella.">
+    
+    <!-- Tailwind CSS desde CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    
+    <style>
+        /* Estilos para Swiper */
+        .swiper {
+            width: 100%;
+            padding-bottom: 40px;
+        }
+        .swiper-slide {
+            height: auto;
+        }
+        .swiper-pagination-bullet {
+            background: #991B1B;
+        }
+        .swiper-pagination-bullet-active {
+            background: #7F1D1D;
+        }
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #7F1D1D;
+        }
+        /* Ocultar swiper en desktop */
+        @media (min-width: 768px) {
+            .swiper-container {
+                display: none;
+            }
+        }
+        /* Ocultar grid en móvil */
+        @media (max-width: 767px) {
+            .products-grid {
+                display: none;
+            }
+        }
+        
+        /* Estilos para tarjetas de productos simétricas */
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-height: 600px;
+        }
+        .product-card-image {
+            height: 320px;
+            min-height: 320px;
+            flex-shrink: 0;
+        }
+        .product-card-content {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+        .product-card-description {
+            min-height: 60px;
+            flex-grow: 1;
+        }
+        .product-card-footer {
+            margin-top: auto;
+            padding-top: 1rem;
+        }
+        
+        /* Asegurar que las tarjetas en swiper tengan la misma altura */
+        .swiper-slide {
+            height: auto;
+        }
+        .swiper-slide .product-card {
+            height: 100%;
+        }
+        
+        /* Asegurar que las tarjetas en grid tengan la misma altura */
+        .products-grid .product-card {
+            height: 100%;
+        }
+        
+        /* Tarjetas de productos uniformes */
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .product-card-image {
+            height: 320px;
+            flex-shrink: 0;
+        }
+        .product-card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 280px;
+        }
+        .product-card-description {
+            flex: 1;
+        }
+        .product-card-footer {
+            margin-top: auto;
+            padding-top: 1rem;
+        }
+        
+        /* Grid de productos con altura uniforme */
+        .products-grid > .product-card {
+            height: 100%;
+        }
+        
+        /* Swiper slides con altura uniforme */
+        .swiper-slide {
+            height: auto;
+            display: flex;
+        }
+        .swiper-slide > div {
+            height: 100%;
+            width: 100%;
+        }
+        
+        /* Asegurar que todas las tarjetas tengan la misma altura en el grid */
+        @media (min-width: 768px) {
+            .products-grid {
+                display: grid;
+                grid-auto-rows: 1fr;
+            }
+            .products-grid > .product-card {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+        
+        /* Animación del logo - contenido dentro del header */
+        .logo-animation {
+            animation: logoFloat 4s ease-in-out infinite, logoGlow 3s ease-in-out infinite alternate;
+            filter: drop-shadow(0 2px 4px rgba(127, 29, 29, 0.3));
+        }
+        @keyframes logoFloat {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            25% {
+                transform: translateY(-3px) rotate(-0.5deg) scale(1.01);
+            }
+            50% {
+                transform: translateY(-5px) rotate(0deg) scale(1.02);
+            }
+            75% {
+                transform: translateY(-3px) rotate(0.5deg) scale(1.01);
+            }
+        }
+        @keyframes logoGlow {
+            0% {
+                filter: drop-shadow(0 2px 4px rgba(127, 29, 29, 0.3)) drop-shadow(0 0 8px rgba(127, 29, 29, 0.2));
+            }
+            100% {
+                filter: drop-shadow(0 3px 6px rgba(127, 29, 29, 0.4)) drop-shadow(0 0 12px rgba(127, 29, 29, 0.3));
+            }
+        }
+        .logo-container {
+            transition: all 0.3s ease;
+            padding: 4px 8px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            max-height: 80px;
+            overflow: hidden;
+        }
+        .logo-container:hover {
+            transform: scale(1.08) rotate(2deg);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+            box-shadow: 0 4px 12px rgba(127, 29, 29, 0.15);
+        }
+        .logo-img {
+            width: auto;
+            height: 100%;
+            max-height: 72px;
+            object-fit: contain;
+            mix-blend-mode: multiply;
+        }
+        
+        /* Botón flotante de WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            animation: whatsappPulse 2s infinite;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
+        }
+        @keyframes whatsappPulse {
+            0% {
+                box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            }
+            50% {
+                box-shadow: 0 4px 25px rgba(37, 211, 102, 0.7);
+            }
+            100% {
+                box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            }
+        }
+    </style>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(139, 69, 19, 0.2) 0%, rgba(101, 67, 33, 0.3) 100%);
+        }
+        .wine-gradient {
+            background: linear-gradient(135deg, #8B4513 0%, #654321 50%, #3E2723 100%);
+        }
+        .scroll-smooth {
+            scroll-behavior: smooth;
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Animación de entrada del hero */
+        .hero-image {
+            animation: heroZoomIn 2s ease-out forwards, constantMove 20s ease-in-out infinite;
+            transform: scale(1.1);
+            will-change: transform;
+        }
+        @keyframes heroZoomIn {
+            from {
+                opacity: 0;
+                transform: scale(1.2) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1.05) translateY(0);
+            }
+        }
+        
+        /* Animación de movimiento constante - efecto flotante */
+        @keyframes constantMove {
+            0%, 100% {
+                transform: scale(1.05) translateX(0) translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: scale(1.08) translateX(-15px) translateY(-8px) rotate(0.5deg);
+            }
+            50% {
+                transform: scale(1.05) translateX(0) translateY(-12px) rotate(0deg);
+            }
+            75% {
+                transform: scale(1.08) translateX(15px) translateY(-8px) rotate(-0.5deg);
+            }
+        }
+        
+        /* Parallax effect para hero */
+        .parallax-bg {
+            will-change: transform;
+        }
+        
+        /* Animación de texto del hero */
+        .hero-text {
+            animation: heroTextSlide 1.5s ease-out 0.5s both;
+        }
+        @keyframes heroTextSlide {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Animación de botones */
+        .hero-buttons {
+            animation: heroButtonsFade 1.5s ease-out 1s both;
+        }
+        @keyframes heroButtonsFade {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Badge de producto estrella */
+        .star-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #8B4513;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* Video container */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* Aspect ratio 16:9 estándar */
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            background: #000;
+            margin-bottom: 1rem;
+        }
+        .video-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 12px;
+        }
+        .video-preview {
+            transition: transform 0.3s ease;
+        }
+        .video-preview:hover {
+            transform: scale(1.02);
+        }
+        
+        /* Streamable video container */
+        .streamable-video-container {
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .streamable-video-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Modal de video */
+        #video-modal {
+            animation: fadeIn 0.3s ease;
+        }
+        #video-modal.hidden {
+            display: none !important;
+        }
+        
+        /* Asegurar que los videos sean visibles */
+        .videos-section {
+            min-height: 400px;
+        }
+    </style>
+</head>
+<body class="scroll-smooth bg-white">
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-sm shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="#inicio" class="flex-shrink-0 logo-container h-16 md:h-18 flex items-center">
+                    <img src="resources/logo/montpellierlogo.png" 
+                         alt="Logo Montpellier" 
+                         class="logo-animation logo-img">
+                </a>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#inicio" class="text-gray-700 hover:text-red-900 transition-colors font-medium inline-flex items-center gap-1">
+                            <i class="fas fa-home text-sm"></i> Inicio
+                        </a>
+                        <a href="#nosotros" class="text-gray-700 hover:text-red-900 transition-colors font-medium inline-flex items-center gap-1">
+                            <i class="fas fa-users text-sm"></i> Nosotros
+                        </a>
+                        <a href="#vinos" class="text-gray-700 hover:text-red-900 transition-colors font-medium inline-flex items-center gap-1">
+                            <i class="fas fa-wine-bottle text-sm"></i> Vinos
+                        </a>
+                        <a href="#galeria" class="text-gray-700 hover:text-red-900 transition-colors font-medium inline-flex items-center gap-1">
+                            <i class="fas fa-images text-sm"></i> Galería
+                        </a>
+                        <a href="#donde-nos-encuentras" class="text-gray-700 hover:text-red-900 transition-colors font-medium inline-flex items-center gap-1">
+                            <i class="fas fa-store text-sm"></i> Dónde nos encuentras
+                        </a>
+                        <a href="#contacto" class="text-gray-700 hover:text-red-900 transition-colors font-medium inline-flex items-center gap-1">
+                            <i class="fas fa-map-marker-alt text-sm"></i> Dónde Estamos
+                        </a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="text-gray-700 hover:text-red-900">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#inicio" class="block px-3 py-2 text-gray-700 hover:text-red-900 inline-flex items-center gap-2">
+                    <i class="fas fa-home"></i> Inicio
+                </a>
+                <a href="#nosotros" class="block px-3 py-2 text-gray-700 hover:text-red-900 inline-flex items-center gap-2">
+                    <i class="fas fa-users"></i> Nosotros
+                </a>
+                <a href="#vinos" class="block px-3 py-2 text-gray-700 hover:text-red-900 inline-flex items-center gap-2">
+                    <i class="fas fa-wine-bottle"></i> Vinos
+                </a>
+                <a href="#galeria" class="block px-3 py-2 text-gray-700 hover:text-red-900 inline-flex items-center gap-2">
+                    <i class="fas fa-images"></i> Galería
+                </a>
+                <a href="#donde-nos-encuentras" class="block px-3 py-2 text-gray-700 hover:text-red-900 inline-flex items-center gap-2">
+                    <i class="fas fa-store"></i> Dónde nos encuentras
+                </a>
+                <a href="#contacto" class="block px-3 py-2 text-gray-700 hover:text-red-900 inline-flex items-center gap-2">
+                    <i class="fas fa-map-marker-alt"></i> Dónde Estamos
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0 parallax-bg">
+            <img src="resources/portada/montpellierportada.png" 
+                 alt="Viñedos Montpellier" 
+                 class="w-full h-full object-cover hero-image"
+                 id="hero-image">
+            <div class="absolute inset-0 hero-gradient"></div>
+        </div>
+        <div class="relative z-10 text-center text-white px-4">
+            <h2 class="text-5xl md:text-7xl font-serif font-bold mb-6 hero-text">
+                Vitivinicola Montpellier
+            </h2>
+            <p class="text-xl md:text-2xl mb-8 font-light tracking-wide hero-text">
+                Pasión por el vino, tradición en cada botella
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center hero-buttons">
+                <a href="#vinos" class="bg-red-900 hover:bg-red-800 text-white px-8 py-3 rounded-full transition-all hover-scale font-medium shadow-lg inline-flex items-center gap-2">
+                    <i class="fas fa-wine-bottle"></i>
+                    Descubrir Vinos
+                </a>
+                <a href="#nosotros" class="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white px-8 py-3 rounded-full transition-all hover-scale font-medium border border-white/30 shadow-lg inline-flex items-center gap-2">
+                    <i class="fas fa-book-open"></i>
+                    Nuestra Historia
+                </a>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
+            <i class="fas fa-chevron-down text-white text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- Sobre Nosotros -->
+    <section id="nosotros" class="py-20 bg-gradient-to-b from-white to-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold text-red-900 mb-6 flex items-center gap-3">
+                        <i class="fas fa-history text-red-900"></i>
+                        Nuestra Historia
+                    </h2>
+                    <p class="text-gray-700 text-lg mb-4 leading-relaxed">
+                        En el corazón de los viñedos chilenos, Montpellier nace de una pasión compartida por crear vinos excepcionales que reflejen la riqueza de nuestra tierra y la dedicación de generaciones de viticultores.
+                    </p>
+                    <p class="text-gray-700 text-lg mb-4 leading-relaxed">
+                        Cada botella cuenta una historia única, desde la cuidadosa selección de uvas hasta el proceso de envejecimiento que otorga carácter y elegancia a nuestros vinos premium.
+                    </p>
+                    <p class="text-gray-700 text-lg leading-relaxed">
+                        Nuestro compromiso es ofrecer experiencias sensoriales inolvidables, combinando tradición y modernidad en cada cosecha.
+                    </p>
+                </div>
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+                         alt="Viñedos" 
+                         class="rounded-lg shadow-2xl hover-scale">
+                    <div class="absolute -bottom-6 -right-6 bg-red-900 text-white p-6 rounded-lg shadow-xl hidden md:block">
+                        <div class="flex items-center gap-2 mb-1">
+                            <i class="fas fa-calendar-check text-2xl"></i>
+                            <p class="text-3xl font-serif font-bold">+20</p>
+                        </div>
+                        <p class="text-sm">Años de experiencia</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vinos Section -->
+    <section id="vinos" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-red-900 mb-4 flex items-center justify-center gap-3">
+                    <i class="fas fa-wine-glass-alt text-red-900"></i>
+                    Nuestra Colección
+                </h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+                    Descubre nuestra selección de vinos premium, cada uno con su propia personalidad y carácter único
+                </p>
+            </div>
+            
+            <!-- Swiper para móvil -->
+            <div class="swiper swiper-container md:hidden">
+                <div class="swiper-wrapper">
+                    <!-- Producto Estrella: Coctel de Navidad -->
+                    <div class="swiper-slide">
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden hover-scale transition-all group relative mx-2 product-card">
+                            <div class="star-badge">
+                                <i class="fas fa-star mr-1"></i> Estrella
+                            </div>
+                            <div class="relative product-card-image bg-gradient-to-br from-amber-50 to-amber-100">
+                                <img src="resources/cola de mono/cocktel.jpg" 
+                                     alt="Coctel de Navidad" 
+                                     class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity">
+                            </div>
+                            <div class="p-6 product-card-content">
+                                <div class="flex-grow">
+                                    <h3 class="text-2xl font-serif font-bold text-red-900 mb-2">Coctel de Navidad</h3>
+                                    <p class="text-gray-600 mb-4 product-card-description">Delicioso cóctel de Navidad tradicional chileno. Una bebida cremosa y especiada perfecta para las fiestas.</p>
+                                </div>
+                                <div class="product-card-footer flex justify-center items-center mt-auto">
+                                    <a href="https://wa.me/56948829905" target="_blank" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-full transition-colors inline-flex items-center gap-2">
+                                        <i class="fab fa-whatsapp"></i>
+                                        Contactar
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Producto Estrella: Pipeño -->
+                    <div class="swiper-slide">
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden hover-scale transition-all group relative mx-2 product-card">
+                            <div class="star-badge">
+                                <i class="fas fa-star mr-1"></i> Estrella
+                            </div>
+                            <div class="relative product-card-image bg-gradient-to-br from-red-50 to-red-100">
+                                <img src="resources/pipeño/pipeño.jpg" 
+                                     alt="Pipeño Montpellier" 
+                                     class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity">
+                            </div>
+                            <div class="p-6 product-card-content">
+                                <div class="flex-grow">
+                                    <h3 class="text-2xl font-serif font-bold text-red-900 mb-2">Pipeño</h3>
+                                    <p class="text-gray-600 mb-4 product-card-description">Vino tradicional chileno, fresco y afrutado. Una experiencia auténtica de la tradición vitivinícola nacional.</p>
+                                </div>
+                                <div class="product-card-footer flex justify-center items-center mt-auto">
+                                    <a href="https://wa.me/56948829905" target="_blank" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-full transition-colors inline-flex items-center gap-2">
+                                        <i class="fab fa-whatsapp"></i>
+                                        Contactar
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Producto Estrella: Granadina -->
+                    <div class="swiper-slide">
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden hover-scale transition-all group relative mx-2 product-card">
+                            <div class="star-badge">
+                                <i class="fas fa-star mr-1"></i> Estrella
+                            </div>
+                            <div class="relative product-card-image bg-gradient-to-br from-pink-50 to-pink-100">
+                                <img src="resources/granadina/granadina.jpg" 
+                                     alt="Granadina Montpellier" 
+                                     class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity">
+                            </div>
+                            <div class="p-6 product-card-content">
+                                <div class="flex-grow">
+                                    <h3 class="text-2xl font-serif font-bold text-red-900 mb-2">Granadina</h3>
+                                    <p class="text-gray-600 mb-4 product-card-description">Bebida refrescante y dulce elaborada con granadas. Perfecta para disfrutar en cualquier momento del día.</p>
+                                </div>
+                                <div class="product-card-footer flex justify-center items-center mt-auto">
+                                    <a href="https://wa.me/56948829905" target="_blank" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-full transition-colors inline-flex items-center gap-2">
+                                        <i class="fab fa-whatsapp"></i>
+                                        Contactar
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Producto Estrella: Aguardiente -->
+                    <div class="swiper-slide">
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden hover-scale transition-all group relative mx-2 product-card">
+                            <div class="star-badge">
+                                <i class="fas fa-star mr-1"></i> Estrella
+                            </div>
+                            <div class="relative product-card-image bg-gradient-to-br from-amber-50 to-amber-100">
+                                <img src="resources/aguardiente/aguardiente.jpg" 
+                                     alt="Aguardiente Montpellier" 
+                                     class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity">
+                            </div>
+                            <div class="p-6 product-card-content">
+                                <div class="flex-grow">
+                                    <h3 class="text-2xl font-serif font-bold text-red-900 mb-2">Aguardiente</h3>
+                                    <p class="text-gray-600 mb-4 product-card-description">Bebida destilada tradicional, fuerte y aromática. Elaborado con las mejores materias primas siguiendo métodos artesanales.</p>
+                                </div>
+                                <div class="product-card-footer flex justify-center items-center mt-auto">
+                                    <a href="https://wa.me/56948829905" target="_blank" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-full transition-colors inline-flex items-center gap-2">
+                                        <i class="fab fa-whatsapp"></i>
+                                        Contactar
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Paginación y navegación -->
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+
+            <!-- Grid para desktop -->
+            <div class="products-grid hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Producto Estrella: Coctel de Navidad -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden hover-scale transition-all group relative product-card">
+                    <div class="star-badge">
+                        <i class="fas fa-star mr-1"></i> Estrella
+                    </div>
+                    <div class="relative product-card-image bg-gradient-to-br from-amber-50 to-amber-100">
+                        <img src="resources/cola de mono/cocktel.jpg" 
+                             alt="Coctel de Navidad" 
+                             class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="p-6 product-card-content">
+                        <div class="flex-grow">
+                            <h3 class="text-2xl font-serif font-bold text-red-900 mb-2">Coctel de Navidad</h3>
+                            <p class="text-gray-600 mb-4 product-card-description">Delicioso cóctel de Navidad tradicional chileno. Una bebida cremosa y especiada perfecta para las fiestas.</p>
+                        </div>
+                        <div class="product-card-footer flex justify-center items-center mt-auto">
+                            <a href="https://wa.me/56948829905" target="_blank" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-full transition-colors inline-flex items-center gap-2">
+                                <i class="fab fa-whatsapp"></i>
+                                Contactar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto Estrella: Pipeño -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden hover-scale transition-all group relative product-card">
+                    <div class="star-badge">
+                        <i class="fas fa-star mr-1"></i> Estrella
+                    </div>
+                    <div class="relative product-card-image bg-gradient-to-br from-red-50 to-red-100">
+                        <img src="resources/pipeño/pipeño.jpg" 
+                             alt="Pipeño Montpellier" 
+                             class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="p-6 product-card-content">
+                        <div class="flex-grow">
+                            <h3 class="text-2xl font-serif font-bold text-red-900 mb-2">Pipeño</h3>
+                            <p class="text-gray-600 mb-4 product-card-description">Vino tradicional chileno, fresco y afrutado. Una experiencia auténtica de la tradición vitivinícola nacional.</p>
+                        </div>
+                        <div class="product-card-footer flex justify-center items-center mt-auto">
+                            <a href="https://wa.me/56948829905" target="_blank" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-full transition-colors inline-flex items-center gap-2">
+                                <i class="fab fa-whatsapp"></i>
+                                Contactar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto Estrella: Granadina -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden hover-scale transition-all group relative product-card">
+                    <div class="star-badge">
+                        <i class="fas fa-star mr-1"></i> Estrella
+                    </div>
+                    <div class="relative product-card-image bg-gradient-to-br from-pink-50 to-pink-100">
+                        <img src="resources/granadina/granadina.jpg" 
+                             alt="Granadina Montpellier" 
+                             class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="p-6 product-card-content">
+                        <div class="flex-grow">
+                            <h3 class="text-2xl font-serif font-bold text-red-900 mb-2">Granadina</h3>
+                            <p class="text-gray-600 mb-4 product-card-description">Bebida refrescante y dulce elaborada con granadas. Perfecta para disfrutar en cualquier momento del día.</p>
+                        </div>
+                        <div class="product-card-footer flex justify-center items-center mt-auto">
+                            <a href="https://wa.me/56948829905" target="_blank" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-full transition-colors inline-flex items-center gap-2">
+                                <i class="fab fa-whatsapp"></i>
+                                Contactar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto Estrella: Aguardiente -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden hover-scale transition-all group relative product-card">
+                    <div class="star-badge">
+                        <i class="fas fa-star mr-1"></i> Estrella
+                    </div>
+                    <div class="relative product-card-image bg-gradient-to-br from-amber-50 to-amber-100">
+                        <img src="resources/aguardiente/aguardiente.jpg" 
+                             alt="Aguardiente Montpellier" 
+                             class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="p-6 product-card-content">
+                        <div class="flex-grow">
+                            <h3 class="text-2xl font-serif font-bold text-red-900 mb-2">Aguardiente</h3>
+                            <p class="text-gray-600 mb-4 product-card-description">Bebida destilada tradicional, fuerte y aromática. Elaborado con las mejores materias primas siguiendo métodos artesanales.</p>
+                        </div>
+                        <div class="product-card-footer flex justify-center items-center mt-auto">
+                            <a href="https://wa.me/56948829905" target="_blank" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-full transition-colors inline-flex items-center gap-2">
+                                <i class="fab fa-whatsapp"></i>
+                                Contactar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos de Producción - Coctel de Navidad -->
+    <section id="videos-produccion" class="py-20 bg-gradient-to-b from-red-50 to-white videos-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-red-900 mb-4 flex items-center justify-center gap-3">
+                    <i class="fas fa-industry text-red-900"></i>
+                    Proceso de Producción
+                </h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto mb-2">
+                    Descubre cómo elaboramos nuestro Coctel de Navidad
+                </p>
+                <div class="flex items-center justify-center gap-2 text-red-900">
+                    <i class="fas fa-star"></i>
+                    <span class="font-semibold">Producto Estrella</span>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="fade-in">
+                    <div class="streamable-video-container rounded-lg overflow-hidden shadow-2xl">
+                        <div style="position:relative; width:100%; height:0px; padding-bottom:132.222%">
+                            <iframe allow="fullscreen" allowfullscreen height="100%" src="https://streamable.com/e/5ogk9m?" width="100%" style="border:none; width:100%; height:100%; position:absolute; left:0px; top:0px; overflow:hidden;"></iframe>
+                        </div>
+                    </div>
+                    <p class="text-center text-gray-700 mt-4 font-medium">
+                        <i class="fas fa-video mr-2 text-red-900"></i>
+                        Proceso de Elaboración - Parte 1
+                    </p>
+                </div>
+                <div class="fade-in">
+                    <div class="streamable-video-container rounded-lg overflow-hidden shadow-2xl">
+                        <div style="position:relative; width:100%; height:0px; padding-bottom:132.222%">
+                            <iframe allow="fullscreen" allowfullscreen height="100%" src="https://streamable.com/e/tjrlom?" width="100%" style="border:none; width:100%; height:100%; position:absolute; left:0px; top:0px; overflow:hidden;"></iframe>
+                        </div>
+                    </div>
+                    <p class="text-center text-gray-700 mt-4 font-medium">
+                        <i class="fas fa-video mr-2 text-red-900"></i>
+                        Proceso de Elaboración - Parte 2
+                    </p>
+                </div>
+                <div class="fade-in">
+                    <div class="streamable-video-container rounded-lg overflow-hidden shadow-2xl">
+                        <div style="position:relative; width:100%; height:0px; padding-bottom:132.222%">
+                            <iframe allow="fullscreen" allowfullscreen height="100%" src="https://streamable.com/e/3e1vl6?" width="100%" style="border:none; width:100%; height:100%; position:absolute; left:0px; top:0px; overflow:hidden;"></iframe>
+                        </div>
+                    </div>
+                    <p class="text-center text-gray-700 mt-4 font-medium">
+                        <i class="fas fa-video mr-2 text-red-900"></i>
+                        Proceso de Elaboración - Parte 3
+                    </p>
+                </div>
+                <div class="fade-in">
+                    <div class="streamable-video-container rounded-lg overflow-hidden shadow-2xl">
+                        <div style="position:relative; width:100%; height:0px; padding-bottom:132.222%">
+                            <iframe allow="fullscreen" allowfullscreen height="100%" src="https://streamable.com/e/4kx9af?" width="100%" style="border:none; width:100%; height:100%; position:absolute; left:0px; top:0px; overflow:hidden;"></iframe>
+                        </div>
+                    </div>
+                    <p class="text-center text-gray-700 mt-4 font-medium">
+                        <i class="fas fa-video mr-2 text-red-900"></i>
+                        Proceso de Elaboración - Parte 4
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dónde nos encuentras -->
+    <section id="donde-nos-encuentras" class="py-20 bg-gradient-to-b from-gray-50 to-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-red-900 mb-4 flex items-center justify-center gap-3">
+                    <i class="fas fa-store text-red-900"></i>
+                    Dónde nos encuentras
+                </h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+                    Encuentra nuestros productos en los mejores puntos de venta
+                </p>
+            </div>
+            
+            <!-- Videos -->
+            <div class="fade-in">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="streamable-video-container rounded-lg overflow-hidden shadow-2xl" style="height: 600px;">
+                        <div style="position:relative; width:100%; height:100%;">
+                            <iframe allow="fullscreen" allowfullscreen height="100%" src="https://streamable.com/e/tjx6ux?" width="100%" style="border:none; width:100%; height:100%; position:absolute; left:0px; top:0px; overflow:hidden;"></iframe>
+                        </div>
+                    </div>
+                    <div class="streamable-video-container rounded-lg overflow-hidden shadow-2xl" style="height: 600px;">
+                        <div style="position:relative; width:100%; height:100%;">
+                            <iframe allow="fullscreen" allowfullscreen height="100%" src="https://streamable.com/e/a3hi1b?" width="100%" style="border:none; width:100%; height:100%; position:absolute; left:0px; top:0px; overflow:hidden;"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galería -->
+    <section id="galeria" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-red-900 mb-4 flex items-center justify-center gap-3">
+                    <i class="fas fa-images text-red-900"></i>
+                    Galería
+                </h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+                    Conoce nuestros viñedos, procesos y momentos especiales
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div class="relative overflow-hidden rounded-lg hover-scale group cursor-pointer">
+                    <img src="resources/portada/montpellierportada.png" 
+                         alt="Portada Montpellier" 
+                         class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl"></i>
+                    </div>
+                </div>
+                <div class="relative overflow-hidden rounded-lg hover-scale group cursor-pointer">
+                    <img src="resources/cola de mono/cocktel.jpg" 
+                         alt="Coctel de Navidad" 
+                         class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl"></i>
+                    </div>
+                </div>
+                <div class="relative overflow-hidden rounded-lg hover-scale group cursor-pointer">
+                    <img src="resources/pipeño/pipeño.jpg" 
+                         alt="Pipeño" 
+                         class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl"></i>
+                    </div>
+                </div>
+                <div class="relative overflow-hidden rounded-lg hover-scale group cursor-pointer">
+                    <img src="resources/pipeño/pipeño2.jpg" 
+                         alt="Pipeño 2" 
+                         class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl"></i>
+                    </div>
+                </div>
+                <div class="relative overflow-hidden rounded-lg hover-scale group cursor-pointer">
+                    <img src="resources/granadina/granadina.jpg" 
+                         alt="Granadina" 
+                         class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl"></i>
+                    </div>
+                </div>
+                <div class="relative overflow-hidden rounded-lg hover-scale group cursor-pointer">
+                    <img src="resources/cola de mono/cocktel.jpg" 
+                         alt="Coctel de Navidad Detalle" 
+                         class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl"></i>
+                    </div>
+                </div>
+                <div class="relative overflow-hidden rounded-lg hover-scale group cursor-pointer">
+                    <img src="resources/pipeño/pipeño.jpg" 
+                         alt="Pipeño Detalle" 
+                         class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl"></i>
+                    </div>
+                </div>
+                <div class="relative overflow-hidden rounded-lg hover-scale group cursor-pointer">
+                    <img src="resources/granadina/granadina.jpg" 
+                         alt="Granadina Detalle" 
+                         class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl"></i>
+                    </div>
+                </div>
+                <div class="relative overflow-hidden rounded-lg hover-scale group cursor-pointer">
+                    <img src="resources/aguardiente/aguardiente.jpg" 
+                         alt="Aguardiente" 
+                         class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dónde Estamos -->
+    <section id="contacto" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-red-900 mb-4 flex items-center justify-center gap-3">
+                    <i class="fas fa-map-marked-alt text-red-900"></i>
+                    Dónde Estamos
+                </h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+                    Visítanos en nuestra ubicación y descubre la magia de nuestros viñedos
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <div class="bg-red-50 rounded-lg p-8 shadow-lg">
+                        <div class="flex items-start mb-6">
+                            <div class="flex-shrink-0 w-16 h-16 bg-red-900 rounded-full flex items-center justify-center">
+                                <i class="fas fa-map-marker-alt text-white text-2xl"></i>
+                            </div>
+                            <div class="ml-6">
+                                <h3 class="text-2xl font-serif font-bold text-red-900 mb-2">Nuestra Ubicación</h3>
+                                <p class="text-gray-700 text-lg leading-relaxed">
+                                    San José de Tango 19572<br>
+                                    Calera de Tango<br>
+                                    Región Metropolitana, Chile
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mt-8">
+                            <a href="https://www.google.com/maps/search/?api=1&query=San+José+de+Tango+19572,+Calera+de+Tango" 
+                               target="_blank"
+                               class="inline-flex items-center gap-3 bg-red-900 hover:bg-red-800 text-white px-6 py-3 rounded-full transition-colors font-medium">
+                                <i class="fab fa-google"></i>
+                                <i class="fas fa-map-marker-alt"></i>
+                                Ver en Google Maps
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="fade-in">
+                    <div class="bg-gray-100 rounded-lg overflow-hidden shadow-lg" style="height: 400px;">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3329.5!2d-70.8!3d-33.6!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDM2JzAwLjAiUyA3MMKwNDgnMDAuMCJX!5e0!3m2!1ses!2scl!4v1234567890&q=San+José+de+Tango+19572,+Calera+de+Tango"
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="Ubicación de Vitivinicola Montpellier">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center fade-in">
+                <div class="inline-flex items-center gap-4 text-gray-700">
+                    <div class="flex items-center gap-2">
+                        <i class="fab fa-instagram text-red-900 text-2xl"></i>
+                        <a href="https://www.instagram.com/montpellier.cl" target="_blank" class="text-red-900 hover:text-red-700 font-medium">
+                            @montpellier.cl
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-red-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="text-2xl font-serif font-bold mb-4">MONTpellier</h3>
+                    <p class="text-red-100">
+                        Pasión por el vino, tradición en cada botella. Descubre la excelencia en cada sorbo.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Enlaces Rápidos</h4>
+                    <ul class="space-y-2 text-red-100">
+                        <li><a href="#inicio" class="hover:text-white transition-colors inline-flex items-center gap-2">
+                            <i class="fas fa-home text-sm"></i> Inicio
+                        </a></li>
+                        <li><a href="#nosotros" class="hover:text-white transition-colors inline-flex items-center gap-2">
+                            <i class="fas fa-users text-sm"></i> Nosotros
+                        </a></li>
+                        <li><a href="#vinos" class="hover:text-white transition-colors inline-flex items-center gap-2">
+                            <i class="fas fa-wine-bottle text-sm"></i> Vinos
+                        </a></li>
+                        <li><a href="#galeria" class="hover:text-white transition-colors inline-flex items-center gap-2">
+                            <i class="fas fa-images text-sm"></i> Galería
+                        </a></li>
+                        <li><a href="#donde-nos-encuentras" class="hover:text-white transition-colors inline-flex items-center gap-2">
+                            <i class="fas fa-store text-sm"></i> Dónde nos encuentras
+                        </a></li>
+                        <li><a href="#contacto" class="hover:text-white transition-colors inline-flex items-center gap-2">
+                            <i class="fas fa-map-marker-alt text-sm"></i> Dónde Estamos
+                        </a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Síguenos</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://www.instagram.com/montpellier.cl" target="_blank" 
+                           class="w-10 h-10 bg-red-800 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" 
+                           class="w-10 h-10 bg-red-800 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" 
+                           class="w-10 h-10 bg-red-800 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-red-800 pt-8 text-center text-red-100">
+                <p>&copy; 2024 Viñatera Montpellier. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botón flotante de WhatsApp -->
+    <a href="https://wa.me/56948829905" 
+       target="_blank" 
+       class="whatsapp-float" 
+       title="Contáctanos por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- JavaScript para menú móvil -->
+    <script>
+        // Menú móvil toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Cerrar menú móvil al hacer clic en un enlace
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+
+        // Smooth scroll para navegación
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animación de fade-in al hacer scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section > div').forEach(section => {
+            observer.observe(section);
+        });
+
+        // La animación constante se maneja completamente con CSS
+        // El parallax se integra de forma más sutil
+        const heroImage = document.getElementById('hero-image');
+        
+        // Asegurar que la animación constante siempre esté activa
+        if (heroImage) {
+            heroImage.style.animation = 'heroZoomIn 2s ease-out forwards, constantMove 20s ease-in-out infinite';
+        }
+
+        // Inicializar Swiper para productos en móvil
+        const swiper = new Swiper('.swiper', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 1.2,
+                },
+            },
+        });
+
+        // Los videos de Streamable están embebidos directamente, no necesitamos modal
+    </script>
+</body>
+</html>
+
